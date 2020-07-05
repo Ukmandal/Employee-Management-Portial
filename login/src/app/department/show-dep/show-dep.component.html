@@ -1,0 +1,46 @@
+<div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="applyFiler($event.target.value)" placeholder="Search">
+    </mat-form-field>
+    <div style="float: right;">
+        <button class="btn btn-success" mat-raised-button (click)="onAdd()">
+            Add Department
+        </button>
+        <button mat-raised-button class="btn btn-success" (click)="downloadPDF()">Download PDF</button>
+        <button mat-raised-button (click)="exportToExcel()" class="btn btn-success">Export To Excel</button>
+    </div>
+</div>
+<div style="overflow: auto;">
+    <div class="mat-elevation-z8">
+        <div id="pdfTable" #pdfTable>
+            <mat-table [dataSource]="listData" matSort>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                <ng-container matColumnDef="DepartmentID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>DepartmentID</mat-header-cell>
+                    <mat-header-cell *matCellDef="let element">{{element.DepartmentID}}</mat-header-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="DepartmentName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>DepartmentName</mat-header-cell>
+                    <mat-header-cell *matCellDef="let element">{{element.DepartmentName}}</mat-header-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Options">
+                    <mat-header-cell *matHeaderCellDef>Options</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button mat-icon-button (click)="onEdit(row)">
+                            <mat-icon>launch</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="onDelete(row.DepartmentID)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+            </mat-table>
+        </div>
+        <mat-paginator [pageSize]="4" [pageSizeOptions]="[2, 4, 6, 10, 20]">
+        </mat-paginator>
+    </div>
+</div>
