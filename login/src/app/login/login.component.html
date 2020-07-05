@@ -1,0 +1,47 @@
+<div class="container" style="padding-top:60px;">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card-group">
+        <div class="card p-4">
+          <div class="card-body">
+            <form name="form" (ngSubmit)="login()" #f="ngForm">
+              <h1 style="text-align:center">Login</h1>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-user"></i></span>
+                </div>
+                <input type="text" name="UserName" [(ngModel)]="model.UserName" class="form-control sty1"
+                  placeholder="Email" required>
+              </div>
+              <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="icon-lock"></i></span>
+                </div>
+                <input type="password" name="Passward" [(ngModel)]="model.Password" class="form-control"
+                  placeholder="Password">
+              </div>
+              <div>
+                <p style="color:#E92626;font-size:20px;font-weight:normal" Class="success" align="left">
+                  {{errorMessage}}
+                </p>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <button type="submit" class="btn btn-primary px-4">Login</button>
+                </div>
+                <div class="col-6 text-right">
+                  <button type="button" class="btn btn-link px-0">Forgot password?</button>
+                </div>
+              </div>
+              <br>
+              <div class="col-12 text-center">
+                <button type="button" (click)="register()"
+                  class="btn btn-primary btn-lg btn-block px-12">Register</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
