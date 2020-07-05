@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-between">
+    <h4>Add New Employee</h4>
+    <button mat-button (click)="onClose()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<div style="overflow: auto; height: 450px;">
+    <form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+        <div class="mt-4 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Employee Name</span>
+            </div>
+            <input required minlength="2" type="text" class="form-control" name="EmployeeName" #EmployeeName="ngModel"
+                [(ngModel)]="service.formData.EmployeeName" />
+        </div>
+
+        <div class="mt-4 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Department</span>
+            </div>
+            <select required class="form-control" name="Department" #Department="ngModel"
+                [(ngModel)]="service.formData.Department">
+                <option *ngFor="let dl of listItems" [value]="dl">
+                    {{dl}}
+                </option>
+            </select>
+        </div>
+
+        <div class="mt-4 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">MailID</span>
+            </div>
+            <input required minlength="2" type="text" class="form-control" name="MailID" #MailID="ngModel"
+                [(ngModel)]="service.formData.MailID" />
+        </div>
+
+        <div class="mt-4 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">DOJ</span>
+            </div>
+            <input required [matDatepicker]="picker" type="text" class="form-control" name="DOJ" #DOJ="ngModel"
+                [(ngModel)]="service.formData.DOJ" />
+            <mat-datepicker-toggle matsuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </div>
+
+        <div class="mt-4 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Age</span>
+            </div>
+            <input required minlength="2" type="text" class="form-control" name="Age" #Age="ngModel"
+                [(ngModel)]="service.formData.Age" />
+        </div>
+
+        <div class="mt-4 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Salary</span>
+            </div>
+            <input required minlength="2" type="text" class="form-control" name="Salary" #Salary="ngModel"
+                [(ngModel)]="service.formData.Salary" />
+        </div>
+        <div class="mt-4 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Address</span>
+            </div>
+            <input required minlength="2" type="text" class="form-control" name="Address" #Address="ngModel"
+                [(ngModel)]="service.formData.Address" />
+        </div>
+
+        <div class="mt-4 input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Phone</span>
+            </div>
+            <input required minlength="2" type="text" class="form-control" name="Phone" #Phone="ngModel"
+                [(ngModel)]="service.formData.Phone" />
+        </div>
+        <button class="mt-4" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+            Add Employee
+        </button>
+    </form>
+</div>
