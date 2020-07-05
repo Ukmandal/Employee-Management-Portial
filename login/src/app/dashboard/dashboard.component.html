@@ -1,0 +1,32 @@
+<div>
+  <div class="row">
+    <div class="col-sm-12 btn btn-primary">
+      Welcome to DashBoard
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <nav class="navbar navbar-expand-sm bg-light navbar-dark">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a routerLink="/Dashboard" routerLinkActive="active"
+                class="m-1 btn btn-light btn-outline-primary">Dashboard</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a routerLink="department" routerLinkActive="active"
+                class="m-1 btn btn-light btn-outline-primary">Departments</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a routerLink="employee" routerLinkActive="active"
+                class="m-1 btn btn-light btn-outline-primary">Employees</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>
