@@ -1,0 +1,81 @@
+<div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="applyFiler($event.target.value)" placeholder="Search">
+    </mat-form-field>
+    <div style="float: right;">
+        <button class="btn btn-success" mat-raised-button (click)="onAdd()">
+            Add Employee
+        </button>
+        <button mat-raised-button class="btn btn-success" (click)="downloadPDF()">Download PDF</button>
+        <button mat-raised-button (click)="exportToExcel()" class="btn btn-success">Export To Excel</button>
+    </div>
+</div>
+<div style="overflow: auto;">
+    <div class="mat-elevation-z8">
+        <div id="pdfTable" #pdfTable>
+            <mat-table [dataSource]="listData" matSort>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+                <ng-container matColumnDef="EmployeeID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>EmployeeID</mat-header-cell>
+                    <mat-header-cell *matCellDef="let element">{{element.EmployeeID}}</mat-header-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="EmployeeName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>EmployeeName</mat-header-cell>
+                    <mat-header-cell *matCellDef="let element">{{element.EmployeeName}}</mat-header-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Department">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Department</mat-header-cell>
+                    <mat-header-cell *matCellDef="let element">{{element.Department}}</mat-header-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="MailID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>MailID</mat-header-cell>
+                    <mat-header-cell *matCellDef="let element">{{element.MailID}}</mat-header-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="DOJ">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>DOJ</mat-header-cell>
+                    <mat-header-cell *matCellDef="let element">{{element.DOJ}}</mat-header-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Address">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+                    <mat-header-cell *matCellDef="let element">{{element.Address}}</mat-header-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Phone">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+                    <mat-header-cell *matCellDef="let element">{{element.Phone}}</mat-header-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Salary">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Salary</mat-header-cell>
+                    <mat-header-cell *matCellDef="let element">{{element.Salary}}</mat-header-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Age">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Age</mat-header-cell>
+                    <mat-header-cell *matCellDef="let element">{{element.Age}}</mat-header-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="Options">
+                    <mat-header-cell *matHeaderCellDef>Options</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button mat-icon-button (click)="onEdit(row)">
+                            <mat-icon>launch</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="onDelete(row.EmployeeID)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+            </mat-table>
+        </div>
+        <mat-paginator [pageSize]="4" [pageSizeOptions]="[2, 4, 6, 10, 20, 30, 50, 100]">
+        </mat-paginator>
+    </div>
+</div>
