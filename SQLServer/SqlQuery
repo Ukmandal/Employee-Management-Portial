@@ -1,0 +1,27 @@
+create database EmployeeDB
+
+CREATE TABLE dbo.Departments
+(
+DepartmentID bigint IDENTITY(1,1) NOT NULL,
+DepartmentName varchar (1000)
+)
+
+SELECT * from dbo.Departments
+insert into dbo.Departments Values ('Finance')
+insert into dbo.Departments Values ('Account')
+
+
+CREATE TABLE dbo.Employees
+(
+EmployeeID bigint IDENTITY(1,1) NOT NULL,
+EmployeeName varchar (1000),
+Department varchar (1000),
+MailID varchar (1000),
+DOJ datetime
+)
+SELECT * from dbo.Employees
+insert into dbo.Employees Values ('Sam', 'Finance', 'sam123@gmail.com', '5-12-2020')
+insert into dbo.Employees Values ('Bob', 'IT', 'bob123@gmail.com', '8-20-2020')
+
+
+
