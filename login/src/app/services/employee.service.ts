@@ -12,7 +12,7 @@ export class EmployeeService {
   formData: Employee;
   constructor(private http:HttpClient) { }
 
-  readonly APIUrl = 'http://localhost:62333/api/Employee';
+  readonly APIUrl = 'http://localhost:55075/api/Employee';
 
   getEmpList(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.APIUrl + '/AllEmployees');

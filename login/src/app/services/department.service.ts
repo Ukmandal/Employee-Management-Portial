@@ -11,7 +11,7 @@ export class DepartmentService {
   formData: Department;
   constructor(private http:HttpClient) { }
 
-  readonly APIUrl = 'http://localhost:62333/api/Department';
+  readonly APIUrl = 'http://localhost:55075/api/Department';
 
   getDepList(): Observable<Department[]> {
     return this.http.get<Department[]>(this.APIUrl + '/AllDepartments');
