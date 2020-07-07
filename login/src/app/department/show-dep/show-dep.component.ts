@@ -10,6 +10,7 @@ import { EditDepComponent } from '../edit-dep/edit-dep.component';
 import { MatPaginator } from '@angular/material/paginator';
 import * as jsPDF from 'jspdf';
 import * as xlsx from 'xlsx';
+import { DeleteDepComponent } from '../delete-dep/delete-dep.component.ts';
 
 @Component({
   selector: 'app-show-dep',
@@ -70,7 +71,14 @@ export class ShowDepComponent implements OnInit {
 
   onDelete(id: number) {
     console.log(id);
-    if (confirm('Are you sure want to delete?')) {
+    let dialogRef = this.dialog.open(DeleteDepComponent, {
+      disableClose: true,
+      width: '400px',
+      height: '200px',
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
       this.service.deleteDepartment(id).subscribe((res) => {
         this.RefreshDepLsit();
         this.snackBar.open(res.toString(), 'Deleted Sucessfully!', {
@@ -78,7 +86,20 @@ export class ShowDepComponent implements OnInit {
           duration: 3000
         });
       })
-    }
+    };
+});
+
+
+    // console.log(id);
+    // if (confirm('Are you sure want to delete?')) {
+    //   this.service.deleteDepartment(id).subscribe((res) => {
+    //     this.RefreshDepLsit();
+    //     this.snackBar.open(res.toString(), 'Deleted Sucessfully!', {
+    //       verticalPosition: 'top',
+    //       duration: 3000
+    //     });
+    //   })
+    // }
   }
 
   public downloadPDF(): void {
