@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace KtmGymCenter.Models
+namespace LoginAPI.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace KtmGymCenter.Models
         public string Department { get; set; }
         public string MailID { get; set; }
         public Nullable<System.DateTime> DOJ { get; set; }
-        public Nullable<int> Phone { get; set; }
+        public Nullable<long> Phone { get; set; }
         public string Address { get; set; }
         public Nullable<long> Salary { get; set; }
         public Nullable<int> Age { get; set; }
