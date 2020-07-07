@@ -4,39 +4,57 @@
       <div class="card-group">
         <div class="card p-4">
           <div class="card-body">
-            <form name="form" (ngSubmit)="login()" #f="ngForm">
-              <h1 style="text-align:center">Login</h1>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="icon-user"></i></span>
+            <form class="form-horizontal" class="login" [formGroup]="loginForm" (ngSubmit)="login()">
+              <div class="form-group row" [ngClass]="{'has-error': (loginForm.get('UserName').touched || loginForm.get('UserName').dirty) &&
+          !loginForm.get('UserName').valid }">
+                <label class="col-sm-3">
+                  <strong>UserName * </strong>
+                </label>
+                <div class="col-sm-8">
+                  <i style="position: relative;top: 24px;right: -300px;cursor: pointer;" class="fa fa-envelope"></i>
+                  <input type="text" formControlName="UserName" class="form-control form-control-sm"
+                    placeholder="Your UserName">
+                  <span class="text-danger" *ngIf="(loginForm.get('UserName').touched || loginForm.get('UserName').dirty) && 
+                  loginForm.get('UserName').errors">
+                    <span *ngIf="loginForm.get('UserName').errors.required">Please enter your UserName
+                      address.</span></span>
                 </div>
-                <input type="text" name="UserName" [(ngModel)]="model.UserName" class="form-control sty1"
-                  placeholder="Email" required>
               </div>
-              <div class="input-group mb-4">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="icon-lock"></i></span>
+
+              <div class="form-group row" [ngClass]="{'has-error': (loginForm.get('Password').touched || loginForm.get('Password').dirty)
+               &&
+          !loginForm.get('Password').valid }">
+                <label class="col-sm-3">
+                  <strong>Password * </strong>
+                </label>
+
+                <div class="col-sm-8">
+                  <input type="{{password ? 'text' : 'password' }}" formControlName="Password"
+                    class="form-control form-control-sm" placeholder="Your Password" required>
+                  <span class="form-control-password" style="float:right;"
+                    (click)="togglePassword()">{{password ? 'Hide': 'Show'}}</span>
+                  <span class="text-danger" *ngIf="(loginForm.get('Password').touched || loginForm.get('Password').dirty) && 
+loginForm.get('Password').errors">
+                    <span *ngIf="loginForm.get('Password').errors.required">Please enter your Password.</span>
+                    <span *ngIf="loginForm.get('Password').errors.minlength">The Password must be longer than 4
+                      characters.</span>
+                    <span *ngIf="loginForm.get('Password').errors.maxlength">The Password must be not longer than 30
+                      characters.</span>
+                  </span>
                 </div>
-                <input type="password" name="Passward" [(ngModel)]="model.Password" class="form-control"
-                  placeholder="Password">
               </div>
               <div>
                 <p style="color:#E92626;font-size:20px;font-weight:normal" Class="success" align="left">
                   {{errorMessage}}
                 </p>
               </div>
-              <div class="row">
-                <div class="col-6">
-                  <button type="submit" class="btn btn-primary px-4">Login</button>
-                </div>
-                <div class="col-6 text-right">
-                  <button type="button" class="btn btn-link px-0">Forgot password?</button>
-                </div>
-              </div>
-              <br>
-              <div class="col-12 text-center">
-                <button type="button" (click)="register()"
-                  class="btn btn-primary btn-lg btn-block px-12">Register</button>
+              <div class="text-center">
+                <button type="submit" class="btn btn-success active" [disabled]="!loginForm.valid"
+                  style="margin-right: 8px; cursor: pointer;">Login</button>
+                <a>Forgot Password ?</a>
+                <hr>
+                <button type="button" class="btn btn-success btn-lg btn-block px-12"
+                  [routerLink]="['/register']">Register</button>
               </div>
             </form>
           </div>
