@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { Register } from '../models/register';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -11,28 +12,41 @@ import { Register } from '../models/register';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  password: boolean = false;
+  registerForm: FormGroup;
   data = false;
-  employeeForm: FormGroup;
   massage: string;
 
-  constructor(private router: Router, private formbulider: FormBuilder, private loginService: LoginService) { }
+  constructor(private router: Router, 
+    private formbulider: FormBuilder, 
+    private loginService: LoginService,
+    public snackBar: MatSnackBar,) { }
 
   ngOnInit() {
-    this.employeeForm = this.formbulider.group({
-      UserName: ['', [Validators.required]],
-      LoginName: ['', [Validators.required]],
-      Password: ['', [Validators.required]],
-      Email: ['', [Validators.required]],
+    this.registerForm = this.formbulider.group({
+      UserName: ['', [Validators.required, Validators.minLength(3)]],
+      LoginName: ['', [Validators.required, Validators.minLength(3)]],
+      Password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
+      Email: ['', [Validators.required, Validators.email]],
       ContactNo: ['', [Validators.required]],
       Address: ['', [Validators.required]],
       Status: ['', [Validators.required]],
-      IsApproved: ['', [Validators.required]],
     });
   }
 
-  onFormSubmit() {
-    const user = this.employeeForm.value;
+   togglePassword() {
+        this.password = !this.password;
+    }
+
+    register() {
+    const user = this.registerForm.value;
     this.createEmployee(user);
+    let snackBarRef = this.snackBar.open('Registerd Successfully!',
+    'Got it!', {
+        duration: 3000,
+        verticalPosition: 'top',
+        horizontalPosition: 'right',
+    });
   }
 
   createEmployee(register: Register) {
@@ -41,7 +55,11 @@ export class RegisterComponent implements OnInit {
         this.data = true;
         this.router.navigate(['/login']);
         this.massage = 'Data saved Successfully';
-        this.employeeForm.reset();
+        this.registerForm.reset();
       });
   }
+
+  cancel() {
+    this.router.navigate(['/register']);
+}
 }    

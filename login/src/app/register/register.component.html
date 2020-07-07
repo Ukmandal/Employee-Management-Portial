@@ -3,30 +3,150 @@
     <div class="col-md-6 mx-auto">
       <div class="card mx-4">
         <div class="card-body p-4">
-          <form [formGroup]="employeeForm" (ngSubmit)="onFormSubmit()">
-            <h1 style="text-align:center">Register</h1>
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Username" formControlName="UserName">
+          <form class="form-horizontal" [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
+          <h1 style="text-align:center">Register</h1>
+          <!-- start UserName -->
+          <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('UserName').touched || registerForm.get('UserName').dirty) &&
+            !registerForm.get('UserName').valid }">
+            <label class="col-sm-3 col-form-label">
+              <strong>User Name * </strong>
+            </label>
+            <div class="col-sm-8">
+              <i style="position: relative;top: 24px;right: -310px;cursor: pointer;" class="fa fa-user"></i>
+              <input type="text" formControlName="UserName" class="form-control form-control-sm"
+                placeholder="Your UserName">
+              <span class="text-danger" *ngIf="(registerForm.get('UserName').touched || registerForm.get('UserName').dirty) && 
+                 registerForm.get('UserName').errors">
+                <span *ngIf="registerForm.get('UserName').errors.required">Please enter your user name.</span>
+                <span *ngIf="registerForm.get('UserName').errors.minlength">The user name must be longer than 3
+                  characters.</span>
+              </span>
             </div>
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Loginname" formControlName="LoginName">
+          </div>
+          <!-- start UserName -->
+          <!-- start LoginName -->
+          <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('LoginName').touched || registerForm.get('LoginName').dirty) &&
+                  !registerForm.get('LoginName').valid }">
+            <label class="col-sm-3 col-form-label">
+              <strong>Login Name * </strong>
+            </label>
+            <div class="col-sm-8">
+              <i style="position: relative;top: 24px;right: -310px;cursor: pointer;" class="fa fa-user"></i>
+              <input type="text" formControlName="LoginName" class="form-control form-control-sm"
+                placeholder="Your LoginName">
+              <span class="text-danger" *ngIf="(registerForm.get('LoginName').touched || registerForm.get('LoginName').dirty) && 
+                       registerForm.get('LoginName').errors">
+                <span *ngIf="registerForm.get('LoginName').errors.required">Please enter your login name.</span>
+                <span *ngIf="registerForm.get('LoginName').errors.minlength">The login name must be longer than 3
+                  characters.</span>
+              </span>
             </div>
-            <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Password" formControlName="Password">
+          </div>
+          <!-- start LoginName -->
+
+          <!-- start email -->
+          <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('Email').touched || registerForm.get('Email').dirty) &&
+                  !registerForm.get('Email').valid }">
+            <label class="col-sm-3 col-form-label">
+              <strong>Email * </strong>
+            </label>
+            <div class="col-sm-8">
+              <i style="position: relative;top: 24px;right: -310px;cursor: pointer;" class="fa fa-envelope"></i>
+              <input type="text" formControlName="Email" class="form-control form-control-sm" placeholder="Your Email">
+              <span class="text-danger" *ngIf="(registerForm.get('Email').touched || registerForm.get('Email').dirty) && 
+                      registerForm.get('Email').errors">
+                <span *ngIf="registerForm.get('Email').errors.required">Please enter your Email address.</span>
+                <br>
+                <span *ngIf="registerForm.get('Email').errors.Email">Please enter a valid Email address.</span>
+              </span>
             </div>
-            <div class="input-group mb-4">
-              <input type="text" class="form-control" placeholder="Email" formControlName="Email">
+          </div>
+          <!-- end email -->
+
+          <!-- start password -->
+          <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('Password').touched || registerForm.get('Password').dirty) &&
+                  !registerForm.get('Password').valid }">
+            <label class="col-sm-3 col-form-label">
+              <strong>Password * </strong>
+            </label>
+            <div class="col-sm-8">
+              <!-- <i style="position: relative;top: 24px;right: -300px;cursor: pointer;" class="fa fa-eye"></i> -->
+              <input type="{{password ? 'text' : 'password' }}" formControlName="Password"
+                class="form-control form-control-sm" placeholder="Your Password" required>
+              <span class="form-control-password" style="float:right;"
+                (click)="togglePassword()">{{password ? 'Hide': 'Show'}}</span>
+              <span class="text-danger" *ngIf="(registerForm.get('Password').touched || registerForm.get('Password').dirty) && 
+                      registerForm.get('Password').errors">
+                <span *ngIf="registerForm.get('Password').errors.required">Please enter your Password.</span>
+                <span *ngIf="registerForm.get('Password').errors.minlength">The Password must be longer than 4
+                  characters.</span>
+                <span *ngIf="registerForm.get('Password').errors.maxlength">The Password must be not longer than 30
+                  characters.</span>
+              </span>
             </div>
-            <div class="input-group mb-4">
-              <input type="text" class="form-control" placeholder="Contact No" formControlName="ContactNo">
+          </div>
+          <!-- end password -->
+
+          <!-- start ContactNo -->
+          <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('ContactNo').touched || registerForm.get('ContactNo').dirty) &&
+             !registerForm.get('ContactNo').valid }">
+            <label class="col-sm-3 col-form-label">
+              <strong>ContactNo * </strong>
+            </label>
+            <div class="col-sm-8">
+              <i style="position: relative;top: 24px;right: -310px;cursor: pointer;" class="fa fa-user-plus"></i>
+              <input type="text" formControlName="ContactNo" class="form-control form-control-sm"
+                placeholder="Your ContactNo">
+              <span class="text-danger" *ngIf="(registerForm.get('ContactNo').touched || registerForm.get('ContactNo').dirty) && 
+                  registerForm.get('ContactNo').errors">
+                <span *ngIf="registerForm.get('ContactNo').errors.required">Please enter your ContactNo.</span>
+              </span>
             </div>
-            <div class="input-group mb-4">
-              <input type="text" class="form-control" placeholder="Address" formControlName="Address">
+          </div>
+          <!-- end ContactNo -->
+
+          <!-- start Address -->
+          <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('Address').touched || registerForm.get('Address').dirty) &&
+              !registerForm.get('Address').valid }">
+            <label class="col-sm-3 col-form-label">
+              <strong>Address * </strong>
+            </label>
+            <div class="col-sm-8">
+              <i style="position: relative;top: 24px;right: -310px;cursor: pointer;" class="fa fa-user-plus"></i>
+              <input type="text" formControlName="Address" class="form-control form-control-sm"
+                placeholder="Your Address">
+              <span class="text-danger" *ngIf="(registerForm.get('Address').touched || registerForm.get('Address').dirty) && 
+                   registerForm.get('Address').errors">
+                <span *ngIf="registerForm.get('Address').errors.required">Please enter your role.</span>
+              </span>
             </div>
-            <div class="input-group mb-4">
-              <input type="number" class="form-control" placeholder="Status" formControlName="Status">
+          </div>
+          <!-- end Address -->
+
+          <!-- start status -->
+          <div class="form-group row" [ngClass]="{'has-error': (registerForm.get('Status').touched || registerForm.get('Status').dirty) &&
+                  !registerForm.get('Status').valid }">
+            <label class="col-sm-3 col-form-label">
+              <strong>Status * </strong>
+            </label>
+            <div class="col-sm-8">
+              <input type="number" formControlName="Status" class="form-control form-control-sm"
+                placeholder="Your Status" required>
+              <span class="text-danger" *ngIf="(registerForm.get('Status').touched || registerForm.get('Status').dirty) && 
+                      registerForm.get('Status').errors">
+                <span *ngIf="registerForm.get('Status').errors.required">Please enter your Status greater or equals than 1.</span>
+              </span>
             </div>
-            <button type="submit" class="btn btn-block btn-primary">Add User</button>
+          </div>
+          <!-- end status -->
+
+          <!-- start actions -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-success active" style="margin-right: 8px;cursor:pointer;"
+              [disabled]="!registerForm.valid">Register</button>
+            <button class="btn btn-warning active" style="cursor:pointer;" (click)="cancel()">Cancel</button>
+          </div>
+          <!-- end actions -->
           </form>
         </div>
       </div>
