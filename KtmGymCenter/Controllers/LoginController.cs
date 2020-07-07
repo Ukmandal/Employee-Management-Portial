@@ -25,7 +25,7 @@ namespace KtmGymCenter.Controllers
             return new Response { Status = "Success", Message = Lg.UserName };
         }
         //For new user Registration  
-        [Route("Api/Login/createcontact")]
+        [Route("Api/Login/UserRegistration")]
         [HttpPost]
         public object createcontact(Registration Lvm)
         {
