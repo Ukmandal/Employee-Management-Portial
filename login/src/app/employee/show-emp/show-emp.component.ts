@@ -11,6 +11,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import * as jsPDF from 'jspdf';
 import * as xlsx from 'xlsx';
 import { SelectionModel } from '@angular/cdk/collections';
+import { DeleteEmpComponent } from '../delete-emp/delete-emp.component';
 
 @Component({
   selector: 'app-show-emp',
@@ -72,9 +73,17 @@ export class ShowEmpComponent implements OnInit {
     dialogConfig.width = "70%";
     this.dialog.open(EditEmpComponent, dialogConfig);
   }
+
   onDelete(id: number) {
     console.log(id);
-    if (confirm('Are you sure want to delete?')) {
+    let dialogRef = this.dialog.open(DeleteEmpComponent, {
+      disableClose: true,
+      width: '400px',
+      height: '200px',
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
       this.service.deleteEmployee(id).subscribe((res) => {
         this.RefreshEmpLsit();
         this.snackBar.open(res.toString(), 'Deleted Sucessfully!', {
@@ -82,7 +91,18 @@ export class ShowEmpComponent implements OnInit {
           duration: 3000
         });
       })
-    }
+    };
+});
+
+    // if (confirm('Are you sure want to delete?')) {
+      // this.service.deleteEmployee(id).subscribe((res) => {
+      //   this.RefreshEmpLsit();
+      //   this.snackBar.open(res.toString(), 'Deleted Sucessfully!', {
+      //     verticalPosition: 'top',
+      //     duration: 3000
+      //   });
+      // })
+    // }
   }
 
   public downloadPDF(): void {
